@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://bblc60kqot5kv"]
+
+[ext_resource type="Script" path="res://script/BG.gd" id="1_55ibc"]
+[ext_resource type="Texture2D" uid="uid://bev2wtjihe1as" path="res://asset/background/back.png" id="1_di4xc"]
+[ext_resource type="Texture2D" uid="uid://buxrn443jq6n1" path="res://asset/background/middle.png" id="3_vgy4t"]
+[ext_resource type="Texture2D" uid="uid://bqr3yjjucobq0" path="res://asset/background/rock-1.png" id="4_nqlqq"]
+[ext_resource type="Texture2D" uid="uid://4qahokvjdnon" path="res://asset/background/rock.png" id="5_j7h64"]
+
+[node name="BG" type="ParallaxBackground"]
+script = ExtResource("1_55ibc")
+
+[node name="Sky Cloud" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1148, 0)
+
+[node name="Back" type="Sprite2D" parent="Sky Cloud"]
+position = Vector2(577.5, 321)
+scale = Vector2(2.99219, 2.68333)
+texture = ExtResource("1_di4xc")
+
+[node name="Little Rock" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(1148, 0)
+
+[node name="Rock-1" type="Sprite2D" parent="Little Rock"]
+position = Vector2(511.375, 296.875)
+scale = Vector2(0.627358, 0.533019)
+texture = ExtResource("4_nqlqq")
+
+[node name="Little Rock2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.8, 0.8)
+motion_mirroring = Vector2(1148, 0)
+
+[node name="Rock-1" type="Sprite2D" parent="Little Rock2"]
+position = Vector2(728, 317)
+scale = Vector2(0.5, 0.462264)
+texture = ExtResource("4_nqlqq")
+
+[node name="Little Rock3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.9, 0.9)
+motion_mirroring = Vector2(1148, 0)
+
+[node name="Rock" type="Sprite2D" parent="Little Rock3"]
+position = Vector2(869, 340)
+scale = Vector2(2.03571, 1.83333)
+texture = ExtResource("5_j7h64")
+
+[node name="Little Rock4" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1148, 0)
+
+[node name="Rock" type="Sprite2D" parent="Little Rock4"]
+position = Vector2(359.625, 316.313)
+scale = Vector2(4.24107, 3.95833)
+texture = ExtResource("5_j7h64")
+
+[node name="Little Rock5" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(1148, 0)
+
+[node name="Rock" type="Sprite2D" parent="Little Rock5"]
+position = Vector2(1060, 349)
+scale = Vector2(1.79911, 4.9125)
+texture = ExtResource("5_j7h64")
+
+[node name="Green brush" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(1405, 0)
+
+[node name="Middle" type="Sprite2D" parent="Green brush"]
+position = Vector2(91, 461)
+texture = ExtResource("3_vgy4t")
+
+[node name="Middle2" type="Sprite2D" parent="Green brush"]
+position = Vector2(267, 461)
+texture = ExtResource("3_vgy4t")
+
+[node name="Middle3" type="Sprite2D" parent="Green brush"]
+position = Vector2(443, 461)
+texture = ExtResource("3_vgy4t")
+
+[node name="Middle4" type="Sprite2D" parent="Green brush"]
+position = Vector2(619, 461)
+texture = ExtResource("3_vgy4t")
+
+[node name="Middle5" type="Sprite2D" parent="Green brush"]
+position = Vector2(795, 461)
+texture = ExtResource("3_vgy4t")
+
+[node name="Middle6" type="Sprite2D" parent="Green brush"]
+position = Vector2(971, 461)
+texture = ExtResource("3_vgy4t")
+
+[node name="Middle7" type="Sprite2D" parent="Green brush"]
+position = Vector2(1147, 461)
+texture = ExtResource("3_vgy4t")
+
+[node name="Middle8" type="Sprite2D" parent="Green brush"]
+position = Vector2(1323, 461)
+texture = ExtResource("3_vgy4t")
