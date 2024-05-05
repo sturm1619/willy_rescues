@@ -582,6 +582,7 @@ texture = ExtResource("9_20wpl")
 expand_mode = 1
 
 [node name="X" type="Label" parent="HUD"]
+visible = false
 offset_left = 76.0
 offset_top = 33.0
 offset_right = 116.0
