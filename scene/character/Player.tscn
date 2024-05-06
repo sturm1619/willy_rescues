@@ -568,6 +568,7 @@ position = Vector2(1, -4)
 shape = SubResource("CapsuleShape2D_hr1d1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 position = Vector2(4, -14)
 scale = Vector2(0.654261, 0.666568)
 sprite_frames = SubResource("SpriteFrames_wejys")

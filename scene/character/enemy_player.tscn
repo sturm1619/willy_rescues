@@ -1,33 +1,32 @@
-[gd_scene load_steps=63 format=3 uid="uid://b77ihdqtlcoe1"]
+[gd_scene load_steps=62 format=3 uid="uid://b77ihdqtlcoe1"]
 
 [ext_resource type="Script" path="res://script/enemy_player.gd" id="1_2xe28"]
-[ext_resource type="Texture2D" uid="uid://ds025ujn3n4u1" path="res://asset/sprite/character/free_knight/_Crouch.png" id="2_owe1r"]
 [ext_resource type="Texture2D" uid="uid://ds025ujn3n4u1" path="res://asset/sprite/character/free_knight/_Crouch.png" id="3_4sjpb"]
 [ext_resource type="Texture2D" uid="uid://ctcuvglonso71" path="res://asset/sprite/character/free_knight/_Death.png" id="4_2irqb"]
 [ext_resource type="Texture2D" uid="uid://biw7n5f6guyjp" path="res://asset/sprite/character/free_knight/_Fall.png" id="5_mo4yu"]
 [ext_resource type="Texture2D" uid="uid://desd2nqe4r3y0" path="res://asset/sprite/character/free_knight/_Idle.png" id="6_tsykt"]
 [ext_resource type="Texture2D" uid="uid://blc7wdflugddi" path="res://asset/sprite/character/free_knight/_Jump.png" id="7_xsedc"]
 [ext_resource type="Texture2D" uid="uid://bs56k4t3ywxas" path="res://asset/sprite/character/free_knight/_Run.png" id="8_3ixls"]
-[ext_resource type="PackedScene" path="res://scene/user_inferface/HealthBar.tscn" id="9_010qj"]
+[ext_resource type="PackedScene" uid="uid://ddc4kva772531" path="res://scene/user_inferface/HealthBar.tscn" id="9_010qj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hr1d1"]
 radius = 9.0
 height = 34.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dlfrd"]
-atlas = ExtResource("2_owe1r")
+atlas = ExtResource("3_4sjpb")
 region = Rect2(0, 0, 120, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n8pvb"]
-atlas = ExtResource("2_owe1r")
+atlas = ExtResource("3_4sjpb")
 region = Rect2(120, 0, 120, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dkh21"]
-atlas = ExtResource("2_owe1r")
+atlas = ExtResource("3_4sjpb")
 region = Rect2(240, 0, 120, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pfyt5"]
-atlas = ExtResource("2_owe1r")
+atlas = ExtResource("3_4sjpb")
 region = Rect2(360, 0, 120, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5ahti"]
@@ -570,6 +569,7 @@ position = Vector2(1, -4)
 shape = SubResource("CapsuleShape2D_hr1d1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 position = Vector2(4, -14)
 scale = Vector2(0.654261, 0.666568)
 sprite_frames = SubResource("SpriteFrames_wejys")
