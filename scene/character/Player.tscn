@@ -1,13 +1,13 @@
 [gd_scene load_steps=62 format=3 uid="uid://1gi634cqbx3j"]
 
 [ext_resource type="Script" path="res://script/Player_2.gd" id="1_8catm"]
-[ext_resource type="Texture2D" uid="uid://ds025ujn3n4u1" path="res://asset/sprite/character/free_knight/_Crouch.png" id="2_6df3o"]
-[ext_resource type="Texture2D" uid="uid://vwfco72ifyyq" path="res://asset/sprite/character/free_knight/_Attack.png" id="2_f4dtw"]
-[ext_resource type="Texture2D" uid="uid://ctcuvglonso71" path="res://asset/sprite/character/free_knight/_Death.png" id="3_6euaj"]
-[ext_resource type="Texture2D" uid="uid://biw7n5f6guyjp" path="res://asset/sprite/character/free_knight/_Fall.png" id="4_tl47l"]
-[ext_resource type="Texture2D" uid="uid://desd2nqe4r3y0" path="res://asset/sprite/character/free_knight/_Idle.png" id="5_ql6c1"]
-[ext_resource type="Texture2D" uid="uid://blc7wdflugddi" path="res://asset/sprite/character/free_knight/_Jump.png" id="6_cl6u5"]
-[ext_resource type="Texture2D" uid="uid://bs56k4t3ywxas" path="res://asset/sprite/character/free_knight/_Run.png" id="7_rtcum"]
+[ext_resource type="Texture2D" uid="uid://hupg5qoo1wx3" path="res://asset/sprite/character/free_knight/_Crouch.png" id="2_6df3o"]
+[ext_resource type="Texture2D" uid="uid://difu4db2agcav" path="res://asset/sprite/character/free_knight/_Attack.png" id="2_f4dtw"]
+[ext_resource type="Texture2D" uid="uid://dd1ry0ld870rm" path="res://asset/sprite/character/free_knight/_Death.png" id="3_6euaj"]
+[ext_resource type="Texture2D" uid="uid://4j8uom2pw408" path="res://asset/sprite/character/free_knight/_Fall.png" id="4_tl47l"]
+[ext_resource type="Texture2D" uid="uid://dbe2prx2rl8ad" path="res://asset/sprite/character/free_knight/_Idle.png" id="5_ql6c1"]
+[ext_resource type="Texture2D" uid="uid://ccghpwmws6tdu" path="res://asset/sprite/character/free_knight/_Jump.png" id="6_cl6u5"]
+[ext_resource type="Texture2D" uid="uid://bcb38f6cgfwvj" path="res://asset/sprite/character/free_knight/_Run.png" id="7_rtcum"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hr1d1"]
 radius = 9.0

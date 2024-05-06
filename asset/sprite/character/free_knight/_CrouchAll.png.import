@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwlaa15btfkjo"
-path="res://.godot/imported/_SlideFull.png-aef3a1669ab1cdba542fcc9f64fbc271.ctex"
+uid="uid://g3tyxopbdbwy"
+path="res://.godot/imported/_CrouchAll.png-d4a9fe3c8f6a1a56665c2fff69df66af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/sprite/character/free_knight/_SlideFull.png"
-dest_files=["res://.godot/imported/_SlideFull.png-aef3a1669ab1cdba542fcc9f64fbc271.ctex"]
+source_file="res://asset/sprite/character/free_knight/_CrouchAll.png"
+dest_files=["res://.godot/imported/_CrouchAll.png-d4a9fe3c8f6a1a56665c2fff69df66af.ctex"]
 
 [params]
 
