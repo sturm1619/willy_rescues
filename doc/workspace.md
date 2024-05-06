@@ -38,8 +38,8 @@ do
 
 ## Remote Repository branch tree
 
-- master: DO NOT MODIFY THIS ONE. This branch contains the files intended for release.
-- production: Merge the final version of the features into this one.
+- main: DO NOT MODIFY THIS ONE. This branch contains the files intended for release.
+- dev: Merge the final version of the features into this one.
 
 ## Workspace tree
 
