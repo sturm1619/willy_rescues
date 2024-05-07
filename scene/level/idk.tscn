@@ -522,7 +522,7 @@ horizontal_alignment = 1
 [node name="BG" parent="." instance=ExtResource("3_s3drp")]
 
 [node name="Enemy player" parent="." instance=ExtResource("4_nmcvh")]
-position = Vector2(225, 275)
+position = Vector2(226, 276)
 
 [node name="Enemy player2" parent="." instance=ExtResource("4_nmcvh")]
 position = Vector2(673, 436)

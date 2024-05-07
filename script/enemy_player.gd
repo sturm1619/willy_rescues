@@ -13,6 +13,7 @@ const GRAVITY = 500.0  # Adjust this value as needed
 var jumping : bool = false
 var attacking : bool = false
 var moving : bool = false
+var hurting : bool = false
 var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player_health = 5
 
@@ -45,23 +46,27 @@ func idle():
 	anim.play("Idle")
 
 func _physics_process(delta):
-	if not is_on_floor():
-		velocity.y += gravity * delta  # Apply gravity continuously when not on the floor
+	if hurting:
+		anim.play("Hurt")
+	
+	else:
+		if not is_on_floor():
+			velocity.y += gravity * delta  # Apply gravity continuously when not on the floor
 
-	var players = get_tree().get_nodes_in_group("players")
+		var players = get_tree().get_nodes_in_group("players")
 
-	if players.size() > 0:
-		var player_position = players[0].global_position
+		if players.size() > 0:
+			var player_position = players[0].global_position
 
-		var distance_to_player = global_position.distance_to(player_position)
-		if distance_to_player < ATTACK_RANGE:
-			attack(player_position)
-		elif distance_to_player < MOV_RANGE:
-			move_towards_player(player_position)
+			var distance_to_player = global_position.distance_to(player_position)
+			if distance_to_player < ATTACK_RANGE:
+				attack(player_position)
+			elif distance_to_player < MOV_RANGE:
+				move_towards_player(player_position)
+			else:
+				idle()
 		else:
 			idle()
-	else:
-		idle()
 
 	move_and_slide()  # Apply sliding with gravity
 
@@ -70,6 +75,12 @@ func _on_area_2d_area_entered(area):
 	player_health -= 1
 	print(player_health, "health left")
 	healthbar.health = player_health
+	hurting = true
 	if player_health <= 0:
 		queue_free()
 	
+
+
+func _on_animated_sprite_2d_animation_finished():
+	if anim.get_current_animation() == "Hurt":
+		hurting = false

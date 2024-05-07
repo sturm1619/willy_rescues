@@ -1,8 +1,9 @@
-[gd_scene load_steps=65 format=3 uid="uid://b77ihdqtlcoe1"]
+[gd_scene load_steps=67 format=3 uid="uid://b77ihdqtlcoe1"]
 
 [ext_resource type="Script" path="res://script/enemy_player.gd" id="1_2xe28"]
 [ext_resource type="Texture2D" uid="uid://difu4db2agcav" path="res://asset/sprite/character/free_knight/_Attack.png" id="3_wdi5o"]
 [ext_resource type="Texture2D" uid="uid://dd1ry0ld870rm" path="res://asset/sprite/character/free_knight/_Death.png" id="4_2irqb"]
+[ext_resource type="Texture2D" uid="uid://dnbsgwewa8cuu" path="res://asset/sprite/character/free_knight/_Hit.png" id="5_2o58w"]
 [ext_resource type="Texture2D" uid="uid://4j8uom2pw408" path="res://asset/sprite/character/free_knight/_Fall.png" id="5_mo4yu"]
 [ext_resource type="Texture2D" uid="uid://dbe2prx2rl8ad" path="res://asset/sprite/character/free_knight/_Idle.png" id="6_tsykt"]
 [ext_resource type="Texture2D" uid="uid://ccghpwmws6tdu" path="res://asset/sprite/character/free_knight/_Jump.png" id="7_xsedc"]
@@ -10,8 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ddc4kva772531" path="res://scene/user_inferface/HealthBar.tscn" id="9_010qj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hr1d1"]
-radius = 9.0
-height = 34.0
+radius = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1vxp4"]
 atlas = ExtResource("3_wdi5o")
@@ -276,6 +276,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("5_2o58w")
+}],
+"loop": true,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_gu4m6")
 }, {
 "duration": 1.0,
@@ -364,6 +372,7 @@ size = Vector2(46.4444, 45.2333)
 
 [sub_resource type="Animation" id="Animation_5ghbc"]
 resource_name = "Attack"
+length = 0.35
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -391,7 +400,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D/SwordHit/CollisionShape2D:disabled")
+tracks/2/path = NodePath("AnimatedSprite2D/SwordHit/Hitbox:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -399,6 +408,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(16.5642, 1, 33.1285),
+"update": 1,
+"values": [Vector2(0, -2), Vector2(10, -2), Vector2(0, -2)]
 }
 
 [sub_resource type="Animation" id="Animation_xmqpt"]
@@ -453,6 +474,57 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [&"Jump"]
+}
+
+[sub_resource type="Animation" id="Animation_4i1ks"]
+resource_name = "Hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"Hurt", &"Hurt"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Area2D/Hurtbox:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_q21py"]
@@ -527,10 +599,58 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D/SwordHit/CollisionShape2D:disabled")
+tracks/1/path = NodePath("AnimatedSprite2D/SwordHit/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Hurt"]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimatedSprite2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Area2D/Hurtbox:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -570,14 +690,15 @@ _data = {
 "Attack": SubResource("Animation_5ghbc"),
 "Death": SubResource("Animation_xmqpt"),
 "Fall": SubResource("Animation_tb12j"),
+"Hurt": SubResource("Animation_4i1ks"),
 "Idle": SubResource("Animation_q21py"),
 "Jump": SubResource("Animation_55ple"),
 "RESET": SubResource("Animation_85vxd"),
 "Run": SubResource("Animation_xc4d5")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v3d8d"]
-size = Vector2(27, 28)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s32b6"]
+radius = 5.5
 
 [node name="Enemy player" type="CharacterBody2D"]
 light_mask = 3
@@ -586,7 +707,7 @@ collision_mask = 17
 script = ExtResource("1_2xe28")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -4)
+position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_hr1d1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -594,15 +715,14 @@ texture_filter = 1
 position = Vector2(4, -14)
 scale = Vector2(0.654261, 0.666568)
 sprite_frames = SubResource("SpriteFrames_wejys")
-animation = &"Attack"
+animation = &"Hurt"
 autoplay = "Idle"
-frame = 1
 
 [node name="SwordHit" type="Area2D" parent="AnimatedSprite2D"]
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/SwordHit"]
+[node name="Hitbox" type="CollisionShape2D" parent="AnimatedSprite2D/SwordHit"]
 light_mask = 2
 visibility_layer = 2
 position = Vector2(45.8532, 18.0027)
@@ -616,9 +736,9 @@ libraries = {
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.5, -4)
-shape = SubResource("RectangleShape2D_v3d8d")
+[node name="Hurtbox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_s32b6")
 
 [node name="HealthBar" parent="." instance=ExtResource("9_010qj")]
 offset_left = -14.0
