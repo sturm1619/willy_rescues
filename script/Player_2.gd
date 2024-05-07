@@ -45,7 +45,7 @@ func jump(delta):
 	
 	if not is_on_floor():
 		velocity.y += gravity * delta
-		if velocity.y > 0:
+		if velocity.y > -50 and anim.get_current_animation() == "Jump":
 			anim.play("Fall")
 
 	if jumping:
@@ -59,7 +59,7 @@ func jump(delta):
 func attack():
 	if Input.is_action_pressed("Attack"):
 		attacking = true
-	if attacking:
+	if attacking and not (moving or anim.get_current_animation() == "Attack&Run"):
 		anim.play("Attack")
 		#anim.animation_set_next("Attack", "Idle")
 
@@ -75,11 +75,13 @@ func move():
 
 	if direction:
 		moving = true
-		attacking = false
 		velocity.x = direction * SPEED
 		# if velocity.y == 0 and moving and (anim.get_current_animation() != "Run" and anim.get_current_animation() != "Jump" and anim.get_current_animation() != "Attack"):
-		if is_on_floor() and moving and not jumping and anim.get_current_animation() != "Attack" and anim.get_current_animation() != "Run":
-			anim.play("Run")
+		if is_on_floor() and moving and not (jumping or attacking) and anim.get_current_animation() != "Attack" and anim.get_current_animation() != "Run":
+			if not attacking:
+				anim.play("Run")
+		if is_on_floor() and moving and attacking and not jumping:
+			anim.play("Attack&Run")
 
 	# if not moving and anim.get_current_animation() != "Idle" and (anim.get_current_animation() != "Attack" or not attacking):
 	# 	velocity.x = 0
@@ -88,9 +90,9 @@ func move():
 
 
 func idle():
-	if not attacking and not jumping and not moving:
+	if not jumping and not moving:
 		velocity.x = 0
-		if velocity.y == 0:
+		if velocity.y == 0 and not attacking:
 			anim.play("Idle")
 	
 
