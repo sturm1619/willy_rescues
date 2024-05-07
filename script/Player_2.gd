@@ -11,8 +11,6 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -300.0
 
 
-
-
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -21,7 +19,7 @@ var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jumping : bool = false
 var attacking : bool = false
 var moving : bool = false
-
+var attack_button_cooling_down : bool = false
 
 
 
@@ -38,7 +36,7 @@ func _on_animation_player_animation_finished(anim_name):
 func _ready():
 	anim.play("Idle")
 	add_to_group("players")
-
+	
 func jump(delta):
 	if is_on_floor():
 		jumping = false
@@ -57,9 +55,12 @@ func jump(delta):
 		anim.play("Jump")
 
 func attack():
-	if Input.is_action_pressed("Attack"):
+	if not Input.is_action_pressed("Attack"):
+		attack_button_cooling_down = false
+	if Input.is_action_pressed("Attack") and not attack_button_cooling_down:
 		attacking = true
 	if attacking and not (moving or anim.get_current_animation() == "Attack&Run"):
+		attack_button_cooling_down = true
 		anim.play("Attack")
 		#anim.animation_set_next("Attack", "Idle")
 
@@ -81,6 +82,7 @@ func move():
 			if not attacking:
 				anim.play("Run")
 		if is_on_floor() and moving and attacking and not jumping:
+			attack_button_cooling_down = true
 			anim.play("Attack&Run")
 
 	# if not moving and anim.get_current_animation() != "Idle" and (anim.get_current_animation() != "Attack" or not attacking):

@@ -4,6 +4,7 @@ extends CharacterBody2D
 
 const SPEED = 200.0
 const ATTACK_RANGE = 50.0
+const MOV_RANGE = 100.0
 const GRAVITY = 500.0  # Adjust this value as needed
 
 @onready var healthbar = $HealthBar #access healthbar scene
@@ -55,8 +56,10 @@ func _physics_process(delta):
 		var distance_to_player = global_position.distance_to(player_position)
 		if distance_to_player < ATTACK_RANGE:
 			attack(player_position)
-		else:
+		elif distance_to_player < MOV_RANGE:
 			move_towards_player(player_position)
+		else:
+			idle()
 	else:
 		idle()
 
