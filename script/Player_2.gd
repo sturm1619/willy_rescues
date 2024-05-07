@@ -19,8 +19,8 @@ var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jumping : bool = false
 var attacking : bool = false
 var moving : bool = false
+var hurting : bool = false
 var attack_button_cooling_down : bool = false
-
 
 
 func _on_area_2d_area_entered(area):
@@ -32,18 +32,23 @@ func _on_area_2d_area_entered(area):
 
 func _on_animation_player_animation_finished(anim_name):
 	attacking = false 
+	hurting = false
 
 func _ready():
 	anim.play("Idle")
 	add_to_group("players")
 	
+func hurt():
+	if hurting:
+		anim.play("Hurt")
+
 func jump(delta):
 	if is_on_floor():
 		jumping = false
 	
 	if not is_on_floor():
 		velocity.y += gravity * delta
-		if velocity.y > -50 and anim.get_current_animation() == "Jump":
+		if velocity.y > -50 and anim.get_current_animation() == "Jump" and anim.get_current_animation() != "Hurt":
 			anim.play("Fall")
 
 	if jumping:
@@ -59,7 +64,7 @@ func attack():
 		attack_button_cooling_down = false
 	if Input.is_action_pressed("Attack") and not attack_button_cooling_down:
 		attacking = true
-	if attacking and not (moving or anim.get_current_animation() == "Attack&Run"):
+	if attacking and not (moving or hurting or anim.get_current_animation() == "Attack&Run"):
 		attack_button_cooling_down = true
 		anim.play("Attack")
 		#anim.animation_set_next("Attack", "Idle")
@@ -78,10 +83,10 @@ func move():
 		moving = true
 		velocity.x = direction * SPEED
 		# if velocity.y == 0 and moving and (anim.get_current_animation() != "Run" and anim.get_current_animation() != "Jump" and anim.get_current_animation() != "Attack"):
-		if is_on_floor() and moving and not (jumping or attacking) and anim.get_current_animation() != "Attack" and anim.get_current_animation() != "Run":
+		if is_on_floor() and moving and not (jumping or attacking or hurting) and anim.get_current_animation() != "Attack" and anim.get_current_animation() != "Run":
 			if not attacking:
 				anim.play("Run")
-		if is_on_floor() and moving and attacking and not jumping:
+		if is_on_floor() and moving and attacking and not (jumping or hurting):
 			attack_button_cooling_down = true
 			anim.play("Attack&Run")
 
@@ -92,13 +97,15 @@ func move():
 
 
 func idle():
+	#if not (jumping and moving and hurting): 
 	if not jumping and not moving:
 		velocity.x = 0
-		if velocity.y == 0 and not attacking:
+		if velocity.y == 0 and not attacking or hurting:
 			anim.play("Idle")
 	
 
 func _physics_process(delta):
+	hurt()
 	jump(delta)
 	attack()
 	move()
@@ -114,3 +121,4 @@ func _on_area_2d_area_entered_health(area):
 	print(player_health, "health left")
 	if player_health < 0:
 		queue_free()
+	hurting = true
