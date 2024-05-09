@@ -21,7 +21,7 @@ var player_health = 5
 func _ready():
 	anim.play("Idle")
 	healthbar.init_health(player_health) #link healthbar to enemyhealth
-	print("Enemy ready")  # Confirm that the enemy script initializes.
+#print("Enemy ready")  # Confirm that the enemy script initializes.
 
 func jump(delta):
 	if is_on_floor():
@@ -45,11 +45,16 @@ func idle():
 	velocity = Vector2.ZERO  # Reset velocity to zero after applying gravity
 	anim.play("Idle")
 
+
 func _physics_process(delta):
-	if hurting:
-		anim.play("Hurt")
+	#var testing : bool = false
+	#if testing:
+		#print("testing")
+	if hurting and anim.get_current_animation() != "Hit":
+		anim.play("Hit")
 	
-	else:
+	
+	if not hurting:
 		if not is_on_floor():
 			velocity.y += gravity * delta  # Apply gravity continuously when not on the floor
 
@@ -71,16 +76,20 @@ func _physics_process(delta):
 	move_and_slide()  # Apply sliding with gravity
 
 func _on_area_2d_area_entered(area):
-	print("Enemy takes damage")
+	#Sprint("Enemy takes damage")
+	print(area)
 	player_health -= 1
-	print(player_health, "health left")
+	#print(player_health, "health left")
 	healthbar.health = player_health
 	hurting = true
+	velocity = Vector2.ZERO
 	if player_health <= 0:
 		queue_free()
 	
 
 
-func _on_animated_sprite_2d_animation_finished():
-	if anim.get_current_animation() == "Hurt":
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "Hit":
+		print("animation finished")
 		hurting = false
+		idle()

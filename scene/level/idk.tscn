@@ -441,9 +441,6 @@ sources/0 = SubResource("TileSetAtlasSource_4qyjc")
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_8l7sd")]
-position = Vector2(45, 274)
-
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(23, 32)
 tile_set = SubResource("TileSet_oyhky")
@@ -520,6 +517,7 @@ that's awkward..."
 horizontal_alignment = 1
 
 [node name="BG" parent="." instance=ExtResource("3_s3drp")]
+scroll_offset = Vector2(60.2389, -392.208)
 
 [node name="Enemy player" parent="." instance=ExtResource("4_nmcvh")]
 position = Vector2(226, 276)
@@ -535,3 +533,6 @@ position = Vector2(885, 435)
 
 [node name="Enemy player5" parent="." instance=ExtResource("4_nmcvh")]
 position = Vector2(1128, 439)
+
+[node name="Player" parent="." instance=ExtResource("1_8l7sd")]
+position = Vector2(90, 274)

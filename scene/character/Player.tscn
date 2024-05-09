@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://1gi634cqbx3j"]
+[gd_scene load_steps=69 format=3 uid="uid://1gi634cqbx3j"]
 
 [ext_resource type="Script" path="res://script/Player_2.gd" id="1_8catm"]
 [ext_resource type="Texture2D" uid="uid://hupg5qoo1wx3" path="res://asset/sprite/character/free_knight/_Crouch.png" id="2_6df3o"]
@@ -94,14 +94,6 @@ region = Rect2(1080, 0, 120, 80)
 [sub_resource type="AtlasTexture" id="AtlasTexture_mobjc"]
 atlas = ExtResource("4_tl47l")
 region = Rect2(0, 0, 120, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s4j6x"]
-atlas = ExtResource("4_tl47l")
-region = Rect2(120, 0, 120, 80)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4v7gh"]
-atlas = ExtResource("4_tl47l")
-region = Rect2(240, 0, 120, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_buoca"]
 atlas = ExtResource("7_38j6l")
@@ -281,12 +273,6 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mobjc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s4j6x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4v7gh")
 }],
 "loop": true,
 "name": &"Fall",
@@ -297,7 +283,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_buoca")
 }],
 "loop": true,
-"name": &"Hurt",
+"name": &"Hit",
 "speed": 5.0
 }, {
 "frames": [{
@@ -525,8 +511,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_o058c"]
-resource_name = "Hurt"
-length = 0.5
+resource_name = "Hit"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -534,10 +519,10 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 0, 0]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -546,7 +531,7 @@ tracks/1/path = NodePath("Area2D/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -558,10 +543,22 @@ tracks/2/path = NodePath("AnimatedSprite2D:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.0001, 0.1, 0.2, 0.2001, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0001),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [&"Fall", &"Fall", &"Fall", &"Fall", &"Fall", &"Fall", &"Fall", &"Fall"]
+"values": [&"Fall", &"Fall"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_q21py"]
@@ -645,7 +642,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -658,6 +655,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"Attack&Run"]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_xc4d5"]
@@ -694,7 +703,7 @@ _data = {
 "Attack&Run": SubResource("Animation_j12du"),
 "Death": SubResource("Animation_xmqpt"),
 "Fall": SubResource("Animation_tb12j"),
-"Hurt": SubResource("Animation_o058c"),
+"Hit": SubResource("Animation_o058c"),
 "Idle": SubResource("Animation_q21py"),
 "Jump": SubResource("Animation_55ple"),
 "RESET": SubResource("Animation_85vxd"),
@@ -727,9 +736,10 @@ collision_layer = 17
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/SwordHit"]
 light_mask = 3
 visibility_layer = 3
-position = Vector2(48.7624, 18.0027)
+position = Vector2(33.6257, 18.0027)
 scale = Vector2(0.999999, 1)
 shape = SubResource("RectangleShape2D_ipl2k")
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -751,6 +761,5 @@ shape = SubResource("CapsuleShape2D_bwd0t")
 disabled = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="area_entered" from="AnimatedSprite2D/SwordHit" to="." method="_on_sword_hit_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered_health"]

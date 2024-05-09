@@ -40,7 +40,7 @@ func _ready():
 	
 func hurt():
 	if hurting:
-		anim.play("Hurt")
+		anim.play("Hit")
 
 func jump(delta):
 	if is_on_floor():
@@ -48,7 +48,7 @@ func jump(delta):
 	
 	if not is_on_floor():
 		velocity.y += gravity * delta
-		if velocity.y > -50 and anim.get_current_animation() == "Jump" and anim.get_current_animation() != "Hurt":
+		if velocity.y > -50 and anim.get_current_animation() == "Jump" and anim.get_current_animation() != "Hit":
 			anim.play("Fall")
 
 	if jumping:

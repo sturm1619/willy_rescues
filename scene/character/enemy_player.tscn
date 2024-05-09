@@ -279,7 +279,7 @@ animations = [{
 "texture": ExtResource("5_2o58w")
 }],
 "loop": true,
-"name": &"Hurt",
+"name": &"Hit",
 "speed": 5.0
 }, {
 "frames": [{
@@ -477,7 +477,8 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_4i1ks"]
-resource_name = "Hurt"
+resource_name = "Hit"
+length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -485,10 +486,10 @@ tracks/0/path = NodePath("AnimatedSprite2D:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.9),
+"times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [&"Hurt", &"Hurt"]
+"values": [&"Hit", &"Hurt"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -509,10 +510,10 @@ tracks/2/path = NodePath("AnimatedSprite2D:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true, false, true, false, true, false, true, false, true]
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -521,10 +522,10 @@ tracks/3/path = NodePath("Area2D/Hurtbox:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 1.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true]
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_q21py"]
@@ -690,7 +691,7 @@ _data = {
 "Attack": SubResource("Animation_5ghbc"),
 "Death": SubResource("Animation_xmqpt"),
 "Fall": SubResource("Animation_tb12j"),
-"Hurt": SubResource("Animation_4i1ks"),
+"Hit": SubResource("Animation_4i1ks"),
 "Idle": SubResource("Animation_q21py"),
 "Jump": SubResource("Animation_55ple"),
 "RESET": SubResource("Animation_85vxd"),
@@ -699,6 +700,7 @@ _data = {
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s32b6"]
 radius = 5.5
+height = 28.0
 
 [node name="Enemy player" type="CharacterBody2D"]
 light_mask = 3
@@ -717,6 +719,7 @@ scale = Vector2(0.654261, 0.666568)
 sprite_frames = SubResource("SpriteFrames_wejys")
 animation = &"Hurt"
 autoplay = "Idle"
+frame = 1
 
 [node name="SwordHit" type="Area2D" parent="AnimatedSprite2D"]
 collision_layer = 32
@@ -747,6 +750,7 @@ offset_right = 34.0
 offset_bottom = -29.0
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="AnimatedSprite2D/SwordHit" to="." method="_on_sword_hit_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
