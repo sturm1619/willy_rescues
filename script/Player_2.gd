@@ -15,6 +15,7 @@ const JUMP_VELOCITY = -300.0
 var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim = get_node("AnimationPlayer")
+@onready var healthbar = $HealthBar
 
 var jumping : bool = false
 var attacking : bool = false
@@ -31,16 +32,15 @@ func _on_area_2d_area_entered(area):
 		queue_free()
 
 func _on_animation_player_animation_finished(anim_name):
-	attacking = false 
-	hurting = false
+	if anim_name == "Attack" or "Attack&Run":
+		attacking = false 
+	if anim_name == "Hit":
+		hurting = false
 
 func _ready():
 	anim.play("Idle")
 	add_to_group("players")
 	
-func hurt():
-	if hurting:
-		anim.play("Hit")
 
 func jump(delta):
 	if is_on_floor():
@@ -105,20 +105,22 @@ func idle():
 	
 
 func _physics_process(delta):
-	hurt()
-	jump(delta)
-	attack()
-	move()
-	idle()
+	if hurting and anim.get_current_animation() != "Hit":
+		anim.play("Hit")
+		
+	if anim.get_current_animation() != "Hit":
+		jump(delta)
+		attack()
+		move()
+		idle()
 	move_and_slide()
 
-
-
-
 func _on_area_2d_area_entered_health(area):
-	print("willy takesh damage")
+	#print("willy takesh damage")
 	player_health -= 1
-	print(player_health, "health left")
+	#print(player_health, "health left")
+	healthbar.health = player_health
 	if player_health < 0:
 		queue_free()
+	velocity = Vector2.ZERO
 	hurting = true

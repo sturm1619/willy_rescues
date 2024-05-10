@@ -77,7 +77,7 @@ func _physics_process(delta):
 
 func _on_area_2d_area_entered(area):
 	#Sprint("Enemy takes damage")
-	print(area)
+	#print(area)
 	player_health -= 1
 	#print(player_health, "health left")
 	healthbar.health = player_health
