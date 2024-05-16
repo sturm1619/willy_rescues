@@ -50,19 +50,17 @@ func _physics_process(delta):
 	#var testing : bool = false
 	#if testing:
 		#print("testing")
+	var players = get_tree().get_nodes_in_group("players")
+	var player_position = players[0].global_position
+		
 	if hurting and anim.get_current_animation() != "Hit":
 		anim.play("Hit")
-	
+		velocity.x = -(player_position - global_position).normalized().x * 50.0
+	if not is_on_floor():
+		velocity.y += gravity * delta  # Apply gravity continuously when not on the floor
 	
 	if not hurting:
-		if not is_on_floor():
-			velocity.y += gravity * delta  # Apply gravity continuously when not on the floor
-
-		var players = get_tree().get_nodes_in_group("players")
-
 		if players.size() > 0:
-			var player_position = players[0].global_position
-
 			var distance_to_player = global_position.distance_to(player_position)
 			if distance_to_player < ATTACK_RANGE:
 				attack(player_position)
@@ -90,6 +88,6 @@ func _on_area_2d_area_entered(area):
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Hit":
-		print("animation finished")
+		#print("animation finished")
 		hurting = false
 		idle()

@@ -14,7 +14,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hr1d1"]
 radius = 6.0
-height = 28.0
+height = 26.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4f6cw"]
 atlas = ExtResource("2_ffan5")
@@ -377,7 +377,8 @@ size = Vector2(52.2627, 45.2333)
 
 [sub_resource type="Animation" id="Animation_5ghbc"]
 resource_name = "Attack"
-length = 0.35
+length = 0.32
+step = 0.08
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -397,7 +398,7 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
@@ -409,7 +410,7 @@ tracks/2/path = NodePath("AnimatedSprite2D/SwordHit/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
+"times": PackedFloat32Array(0, 0.1, 0.32),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -561,6 +562,8 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_o058c"]
 resource_name = "Hit"
+length = 0.48
+step = 0.08
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -580,10 +583,10 @@ tracks/1/path = NodePath("Area2D/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.48, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [true, false]
+"values": [true, false, false, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -595,7 +598,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.0001),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [&"Fall", &"Fall"]
+"values": [&"Fall", &"Hit"]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -604,10 +607,10 @@ tracks/3/path = NodePath("AnimatedSprite2D:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true, false, true, false, true, false, true, false, true]
+"values": [true, false, true, false, true, false, true, true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_q21py"]
@@ -744,7 +747,8 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_xc4d5"]
 resource_name = "Run"
-length = 0.55
+length = 0.48
+step = 0.08
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -752,7 +756,7 @@ tracks/0/path = NodePath("AnimatedSprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0, 1, 2, 3, 4, 5]
@@ -797,14 +801,13 @@ _data = {
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bwd0t"]
 radius = 6.0
-height = 26.5
+height = 24.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 33
 script = ExtResource("1_8catm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_hr1d1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -837,12 +840,11 @@ zoom = Vector2(2.5, 2.5)
 position_smoothing_speed = 14.0
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 position = Vector2(1, 0)
 collision_mask = 33
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1, -1)
+position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_bwd0t")
 
 [node name="HealthBar" parent="." instance=ExtResource("11_v2kfj")]
