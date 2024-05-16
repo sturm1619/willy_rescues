@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://1gi634cqbx3j"]
+[gd_scene load_steps=69 format=3 uid="uid://1gi634cqbx3j"]
 
 [ext_resource type="Script" path="res://script/Player_2.gd" id="1_8catm"]
 [ext_resource type="Texture2D" uid="uid://hupg5qoo1wx3" path="res://asset/sprite/character/free_knight/_Crouch.png" id="2_6df3o"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://ccghpwmws6tdu" path="res://asset/sprite/character/free_knight/_Jump.png" id="6_cl6u5"]
 [ext_resource type="Texture2D" uid="uid://dnbsgwewa8cuu" path="res://asset/sprite/character/free_knight/_Hit.png" id="7_38j6l"]
 [ext_resource type="Texture2D" uid="uid://bcb38f6cgfwvj" path="res://asset/sprite/character/free_knight/_Run.png" id="7_rtcum"]
-[ext_resource type="PackedScene" uid="uid://ddc4kva772531" path="res://scene/user_inferface/HealthBar.tscn" id="11_v2kfj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hr1d1"]
 radius = 6.0
@@ -410,7 +409,7 @@ tracks/2/path = NodePath("AnimatedSprite2D/SwordHit/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.32),
+"times": PackedFloat32Array(0, 0.08, 0.24),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -422,7 +421,7 @@ tracks/3/path = NodePath("Area2D/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.32),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -430,7 +429,8 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_j12du"]
 resource_name = "Attack&Run"
-length = 0.35
+length = 0.32
+step = 0.08
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -450,7 +450,7 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
@@ -462,7 +462,7 @@ tracks/2/path = NodePath("AnimatedSprite2D/SwordHit/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
+"times": PackedFloat32Array(0, 0.08, 0.24),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -474,7 +474,7 @@ tracks/3/path = NodePath("Area2D/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.32),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -846,12 +846,6 @@ collision_mask = 33
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_bwd0t")
-
-[node name="HealthBar" parent="." instance=ExtResource("11_v2kfj")]
-offset_left = -11.0
-offset_top = -36.0
-offset_right = 38.0
-offset_bottom = -24.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

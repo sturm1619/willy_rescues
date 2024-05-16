@@ -14,6 +14,7 @@ var jumping : bool = false
 var attacking : bool = false
 var moving : bool = false
 var hurting : bool = false
+var dead : bool = false
 var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player_health = 5
 
@@ -52,13 +53,16 @@ func _physics_process(delta):
 		#print("testing")
 	var players = get_tree().get_nodes_in_group("players")
 	var player_position = players[0].global_position
-		
-	if hurting: #and anim.get_current_animation() != "Hit":
-		anim.play("Hit")
 	if not is_on_floor():
 		velocity.y += gravity * delta  # Apply gravity continuously when not on the floor
-	
-	if not hurting:
+		
+	if dead and anim.get_current_animation() != "Death":
+		anim.play("Death")
+		
+	if hurting and not (dead or anim.get_current_animation() == "Hit"):
+		anim.play("Hit")
+		
+	if not (hurting or dead):
 		if players.size() > 0:
 			var distance_to_player = global_position.distance_to(player_position)
 			if distance_to_player < ATTACK_RANGE:
@@ -72,26 +76,32 @@ func _physics_process(delta):
 
 	move_and_slide()  # Apply sliding with gravity
 
-func _on_area_2d_area_entered(area):
+func _on_area_2d_area_entered(_area): #maybe this _area variable can help determine what hitted the enemy
 	var players = get_tree().get_nodes_in_group("players")
 	var player_position = players[0].global_position
-	
+	velocity = Vector2.ZERO
 	#Sprint("Enemy takes damage")
 	#print(area)
 	player_health -= 1
-	#print(player_health, "health left")
 	healthbar.health = player_health
-	hurting = true
-	velocity = Vector2.ZERO
-	velocity.x -= (player_position - global_position).normalized().x * 50.0
-	if player_health <= 0:
-		queue_free()
+
+	if player_health > 0:
+		#print(player_health, "health left")
+		hurting = true
+		velocity.x = -(player_position - global_position).normalized().x * 50.0
+
+	else:
+		dead = true
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Hit":
 		#print("animation finished")
 		hurting = false
 		idle()
-	elif anim.name == "Attack":
+	elif anim_name == "Attack":
 		attacking = false
 		idle()
+	elif anim_name == "Death":
+		dead = false
+		queue_free()
+
