@@ -16,7 +16,9 @@
   b. Levels are **too freaking short**
 
 3. Clean Kinesthetics
-  a. No **i**-frames for enemies
-  b. **Controlled jumps**
-  c. Willy's **Healthbar**
-  d. Multidirectional attacks?
+  a. **Controlled jumps**
+  b. Willy's **Healthbar**
+  c. Multidirectional attacks?
+
+4. Random bugs
+  a. Enemies getting more aggro?

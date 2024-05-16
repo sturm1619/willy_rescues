@@ -17,7 +17,6 @@ var hurting : bool = false
 var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player_health = 5
 
-
 func _ready():
 	anim.play("Idle")
 	healthbar.init_health(player_health) #link healthbar to enemyhealth
@@ -33,6 +32,7 @@ func jump(delta):
 
 func attack(player_position):
 	if global_position.distance_to(player_position) < ATTACK_RANGE:
+		attacking = true
 		anim.play("Attack")
 
 func move_towards_player(player_position):
@@ -53,9 +53,8 @@ func _physics_process(delta):
 	var players = get_tree().get_nodes_in_group("players")
 	var player_position = players[0].global_position
 		
-	if hurting and anim.get_current_animation() != "Hit":
+	if hurting: #and anim.get_current_animation() != "Hit":
 		anim.play("Hit")
-		velocity.x = -(player_position - global_position).normalized().x * 50.0
 	if not is_on_floor():
 		velocity.y += gravity * delta  # Apply gravity continuously when not on the floor
 	
@@ -74,6 +73,9 @@ func _physics_process(delta):
 	move_and_slide()  # Apply sliding with gravity
 
 func _on_area_2d_area_entered(area):
+	var players = get_tree().get_nodes_in_group("players")
+	var player_position = players[0].global_position
+	
 	#Sprint("Enemy takes damage")
 	#print(area)
 	player_health -= 1
@@ -81,13 +83,15 @@ func _on_area_2d_area_entered(area):
 	healthbar.health = player_health
 	hurting = true
 	velocity = Vector2.ZERO
+	velocity.x -= (player_position - global_position).normalized().x * 50.0
 	if player_health <= 0:
 		queue_free()
-	
-
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Hit":
 		#print("animation finished")
 		hurting = false
+		idle()
+	elif anim.name == "Attack":
+		attacking = false
 		idle()
