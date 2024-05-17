@@ -23,6 +23,9 @@ var moving : bool = false
 var hurting : bool = false
 var attack_button_cooling_down : bool = false
 
+const air_speed_top : float = 50.0
+var air_accel : float = 0.0
+
 
 func _on_area_2d_area_entered(_area):
 	print("Player enemy house")
@@ -45,6 +48,7 @@ func _ready():
 func jump():
 	if is_on_floor():
 		jumping = false
+		air_accel = 0
 	
 	if not is_on_floor():
 		if velocity.y > -50 and anim.get_current_animation() == "Jump" and anim.get_current_animation() != "Hit":
@@ -80,9 +84,17 @@ func move():
 
 	if direction:
 		moving = true
-		if not attacking:
+		if not (attacking or jumping):
 			velocity.x = direction * SPEED
-		# if velocity.y == 0 and moving and (anim.get_current_animation() != "Run" and anim.get_current_animation() != "Jump" and anim.get_current_animation() != "Attack"):
+		
+		if jumping and not attacking:
+			#print(velocity.x)
+			print(air_accel)
+			if velocity.x < air_speed_top or velocity.x > -air_speed_top:
+				#velocity.x = direction * SPEED
+				velocity.x += direction * air_accel
+				air_accel += 0.25
+		
 		if is_on_floor() and moving and not (jumping or attacking or hurting) and anim.get_current_animation() != "Attack" and anim.get_current_animation() != "Run":
 			if not attacking:
 				anim.play("Run")

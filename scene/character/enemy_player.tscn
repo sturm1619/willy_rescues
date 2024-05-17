@@ -846,6 +846,10 @@ offset_top = -37.0
 offset_right = 34.0
 offset_bottom = -29.0
 
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="area_entered" from="AnimatedSprite2D/SwordHit" to="." method="_on_sword_hit_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
