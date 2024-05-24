@@ -19,7 +19,6 @@
   b. Levels are **too freaking short**
 
 3. Clean Kinesthetics
-  b. Willy's **Healthbar** (Dallin)
     1) Level Timer, Score System
   e. Not much interactions (Breakable objects, collectibles, powerups?)
 
@@ -29,3 +28,17 @@
 ## Done
 
 1. 
+
+
+Buy assests
+- Find someone to draw
+- \$30 * 7 animation = \$210 ($300)
+- Grab robots from internet
+- Stick to current Tileset
+
+Implement Chronometer and Score system
+
+Implement Levels
+- Tunes?
+- Intro and Outro animation
+
