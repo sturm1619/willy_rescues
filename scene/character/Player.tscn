@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://1gi634cqbx3j"]
+[gd_scene load_steps=73 format=3 uid="uid://1gi634cqbx3j"]
 
 [ext_resource type="Script" path="res://script/Player_2.gd" id="1_8catm"]
 [ext_resource type="Texture2D" uid="uid://hupg5qoo1wx3" path="res://asset/sprite/character/free_knight/_Crouch.png" id="2_6df3o"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://ccghpwmws6tdu" path="res://asset/sprite/character/free_knight/_Jump.png" id="6_cl6u5"]
 [ext_resource type="Texture2D" uid="uid://dnbsgwewa8cuu" path="res://asset/sprite/character/free_knight/_Hit.png" id="7_38j6l"]
 [ext_resource type="Texture2D" uid="uid://bcb38f6cgfwvj" path="res://asset/sprite/character/free_knight/_Run.png" id="7_rtcum"]
+[ext_resource type="PackedScene" uid="uid://bf41jlt4ixpyp" path="res://scene/user_inferface/P_HealthBar.tscn" id="11_2iftk"]
+[ext_resource type="Texture2D" uid="uid://b1riorqdmawpy" path="res://scene/user_inferface/GUI.png" id="12_rl61b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hr1d1"]
 radius = 6.0
@@ -803,6 +805,15 @@ _data = {
 radius = 6.0
 height = 24.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ax54"]
+texture = ExtResource("12_rl61b")
+region_rect = Rect2(135, 20, 52, 7)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xa4jt"]
+texture = ExtResource("12_rl61b")
+texture_margin_left = 1.0
+region_rect = Rect2(70, 19, 54, 9)
+
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 33
 script = ExtResource("1_8catm")
@@ -846,6 +857,17 @@ collision_mask = 33
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_bwd0t")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar2" parent="CanvasLayer" instance=ExtResource("11_2iftk")]
+offset_left = 84.0
+offset_right = 343.0
+offset_bottom = 77.0
+size_flags_vertical = 8
+theme_override_styles/background = SubResource("StyleBoxTexture_7ax54")
+theme_override_styles/fill = SubResource("StyleBoxTexture_xa4jt")
+value = 100.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

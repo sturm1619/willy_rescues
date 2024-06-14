@@ -14,15 +14,17 @@ const JUMP_VELOCITY = -350.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var hitbox = get_node("AnimatedSprite2D/SwordHit/CollisionShape2D")
 @onready var anim = get_node("AnimationPlayer")
-#@onready var healthbar = $HealthBar
+@onready var healthbar = $CanvasLayer/HealthBar2
 
 var jumping : bool = false
 var attacking : bool = false
 var moving : bool = false
 var hurting : bool = false
 var attack_button_cooling_down : bool = false
+
+const air_speed_top : float = 50.0
+var air_accel : float = 0.0
 
 
 func _on_area_2d_area_entered(_area):
@@ -39,6 +41,7 @@ func _on_animation_player_animation_finished(anim_name):
 		hurting = false
 
 func _ready():
+	healthbar.init_health(player_health)
 	anim.play("Idle")
 	add_to_group("players")
 	
@@ -46,6 +49,7 @@ func _ready():
 func jump():
 	if is_on_floor():
 		jumping = false
+		air_accel = 0
 	
 	if not is_on_floor():
 		if velocity.y > -50 and anim.get_current_animation() == "Jump" and anim.get_current_animation() != "Hit":
@@ -73,16 +77,11 @@ func attack():
 func move():
 	moving = false
 	var direction = Input.get_axis("ui_left", "ui_right")
-	var hitbox_position = hitbox.get_position()
 	if direction == -1:
 		get_node("AnimatedSprite2D").flip_h = true
-		if hitbox_position.x > 0:
-			hitbox.set_position(Vector2(hitbox_position.x * -1, hitbox_position.y))
 
 	if direction == 1:
 		get_node("AnimatedSprite2D").flip_h = false
-		if hitbox_position.x < 0:
-			hitbox.set_position(Vector2(hitbox_position.x * -1, hitbox_position.y))
 
 	if direction:
 		moving = true
@@ -128,7 +127,7 @@ func _on_area_2d_area_entered_health(_area):
 	#print("willy takesh damage")
 	player_health -= 1
 	#print(player_health, "health left")
-	#healthbar.health = player_health
+	healthbar.health = player_health
 	if player_health < 0:
 		queue_free()
 	velocity = Vector2.ZERO

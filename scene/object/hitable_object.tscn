@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cr2ywl06wsmjf"]
 
 [ext_resource type="Script" path="res://script/hitable_object.gd" id="1_lowna"]
-[ext_resource type="Texture2D" path="res://asset/sprite/object/house.png" id="2_tx67t"]
+[ext_resource type="Texture2D" uid="uid://cl7bshcmdsly4" path="res://asset/sprite/object/house.png" id="2_tx67t"]
 [ext_resource type="PackedScene" uid="uid://ddc4kva772531" path="res://scene/user_inferface/HealthBar.tscn" id="3_g7ini"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7515"]

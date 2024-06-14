@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhc6jiwwrpe08"]
+
+[ext_resource type="Script" path="res://script/UI.gd" id="1_pohby"]
+[ext_resource type="Script" path="res://script/HP.gd" id="2_10xog"]
+[ext_resource type="Texture2D" uid="uid://dosi6ox1md5mi" path="res://asset/sprite/object/Screen Shot 2024-05-03 at 12.38.41 PM.png" id="3_84n5i"]
+
+[sub_resource type="Theme" id="Theme_a454s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahjdx"]
+bg_color = Color(0.12549, 0.168627, 0.192157, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_pohby")
+
+[node name="HP" type="Label" parent="."]
+offset_left = 26.0
+offset_top = 7.0
+offset_right = 66.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+script = ExtResource("2_10xog")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 6.0
+offset_top = 12.0
+offset_right = 125.0
+offset_bottom = 76.0
+scale = Vector2(1.25509, 1)
+theme = SubResource("Theme_a454s")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ahjdx")
+
+[node name="coin image" type="TextureRect" parent="."]
+offset_left = 17.0
+offset_top = 23.0
+offset_right = 512.0
+offset_bottom = 568.0
+scale = Vector2(0.0889058, 0.0811789)
+texture = ExtResource("3_84n5i")
+expand_mode = 1
+
+[node name="X" type="Label" parent="."]
+offset_left = 76.0
+offset_top = 33.0
+offset_right = 116.0
+offset_bottom = 56.0
+text = "X"
+
+[node name="COIN" type="Label" parent="."]
+offset_left = 102.0
+offset_top = 26.0
+offset_right = 123.0
+offset_bottom = 49.0
+scale = Vector2(1.7, 1.7)
+text = "##"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dp5ijhdw6l25j"]
+[gd_scene load_steps=17 format=3 uid="uid://dp5ijhdw6l25j"]
 
 [ext_resource type="PackedScene" uid="uid://1gi634cqbx3j" path="res://scene/character/Player.tscn" id="1_8l7sd"]
 [ext_resource type="Texture2D" uid="uid://1bfuscacxqqi" path="res://asset/tileset/tileset.png" id="2_dktjx"]
@@ -9,8 +9,9 @@
 [ext_resource type="Script" path="res://script/HP.gd" id="7_o0odn"]
 [ext_resource type="Script" path="res://script/UI.gd" id="7_r402g"]
 [ext_resource type="PackedScene" uid="uid://ckgfd56gs3qsc" path="res://scene/object/coin.tscn" id="8_fq8jt"]
-[ext_resource type="Texture2D" uid="uid://dgs8jng0x0nfe" path="res://asset/sprite/object/Screen Shot 2024-04-12 at 8.04.45 PM.png" id="9_20wpl"]
+[ext_resource type="Texture2D" uid="uid://b1riorqdmawpy" path="res://scene/user_inferface/GUI.png" id="9_i011k"]
 [ext_resource type="Script" path="res://script/player health bar.gd" id="10_oafsr"]
+[ext_resource type="Texture2D" uid="uid://dosi6ox1md5mi" path="res://asset/sprite/object/Screen Shot 2024-05-03 at 12.38.41 PM.png" id="10_uwrnm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4qyjc"]
 texture = ExtResource("2_dktjx")
@@ -443,13 +444,14 @@ sources/0 = SubResource("TileSetAtlasSource_4qyjc")
 
 [sub_resource type="Theme" id="Theme_a454s"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahjdx"]
-bg_color = Color(0.12549, 0.168627, 0.192157, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dpni8"]
+texture = ExtResource("9_i011k")
+region_rect = Rect2(96, 36, 64, 24)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_8l7sd")]
-position = Vector2(46, 237)
+position = Vector2(56, 237)
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(1, 0)
@@ -564,21 +566,20 @@ theme_override_font_sizes/font_size = 50
 script = ExtResource("7_o0odn")
 
 [node name="Panel" type="Panel" parent="HUD"]
-offset_left = 6.0
-offset_top = 12.0
-offset_right = 125.0
-offset_bottom = 76.0
+offset_right = 185.0
+offset_bottom = 125.0
 scale = Vector2(1.25509, 1)
 theme = SubResource("Theme_a454s")
-theme_override_styles/panel = SubResource("StyleBoxFlat_ahjdx")
+theme_override_styles/panel = SubResource("StyleBoxTexture_dpni8")
 
 [node name="coin image" type="TextureRect" parent="HUD"]
-offset_left = 17.0
-offset_top = 23.0
-offset_right = 512.0
-offset_bottom = 568.0
+visible = false
+offset_left = 52.0
+offset_top = 86.0
+offset_right = 367.0
+offset_bottom = 433.0
 scale = Vector2(0.0889058, 0.0811789)
-texture = ExtResource("9_20wpl")
+texture = ExtResource("10_uwrnm")
 expand_mode = 1
 
 [node name="X" type="Label" parent="HUD"]
@@ -590,10 +591,10 @@ offset_bottom = 56.0
 text = "X"
 
 [node name="COIN" type="Label" parent="HUD"]
-offset_left = 102.0
-offset_top = 26.0
-offset_right = 123.0
-offset_bottom = 49.0
+offset_left = 138.0
+offset_top = 73.0
+offset_right = 159.0
+offset_bottom = 96.0
 scale = Vector2(1.7, 1.7)
 text = "##"
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dx5l15witnxh"
-path="res://.godot/imported/_WallHang.png-148fdec44c0dc7757395ec8bf43e1998.ctex"
+uid="uid://b1riorqdmawpy"
+path="res://.godot/imported/GUI.png-6de62cbc21d0166b7b1ea30188a4a564.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/sprite/character/free_knight/_WallHang.png"
-dest_files=["res://.godot/imported/_WallHang.png-148fdec44c0dc7757395ec8bf43e1998.ctex"]
+source_file="res://scene/user_inferface/GUI.png"
+dest_files=["res://.godot/imported/GUI.png-6de62cbc21d0166b7b1ea30188a4a564.ctex"]
 
 [params]
 

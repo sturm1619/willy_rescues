@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dp5ijhdw6l25j"]
+[gd_scene load_steps=17 format=3 uid="uid://dp5ijhdw6l25j"]
 
 [ext_resource type="PackedScene" uid="uid://1gi634cqbx3j" path="res://scene/character/Player.tscn" id="1_8l7sd"]
 [ext_resource type="Texture2D" uid="uid://1bfuscacxqqi" path="res://asset/tileset/tileset.png" id="2_dktjx"]
@@ -6,6 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://b77ihdqtlcoe1" path="res://scene/character/enemy_player.tscn" id="4_nmcvh"]
 [ext_resource type="PackedScene" uid="uid://csiaiomfjea5x" path="res://scene/object/checkpoint.tscn" id="5_v30b8"]
 [ext_resource type="Script" path="res://scene/object/checkpoint_level_1.gd" id="6_5swy1"]
+[ext_resource type="Script" path="res://script/UI.gd" id="7_y2co5"]
+[ext_resource type="Script" path="res://script/HP.gd" id="8_d0b65"]
+[ext_resource type="Texture2D" uid="uid://b1riorqdmawpy" path="res://scene/user_inferface/GUI.png" id="9_085li"]
+[ext_resource type="Texture2D" uid="uid://dosi6ox1md5mi" path="res://asset/sprite/object/Screen Shot 2024-05-03 at 12.38.41 PM.png" id="10_jreob"]
+[ext_resource type="Script" path="res://script/player health bar.gd" id="11_t14dm"]
+[ext_resource type="PackedScene" uid="uid://ckgfd56gs3qsc" path="res://scene/object/coin.tscn" id="12_s6nlx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4qyjc"]
 texture = ExtResource("2_dktjx")
@@ -447,6 +453,12 @@ texture = ExtResource("2_dktjx")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_4qyjc")
 
+[sub_resource type="Theme" id="Theme_wqhxi"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r5lyj"]
+texture = ExtResource("9_085li")
+region_rect = Rect2(96, 36, 64, 24)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -540,8 +552,75 @@ position = Vector2(885, 435)
 position = Vector2(1128, 439)
 
 [node name="Player" parent="." instance=ExtResource("1_8l7sd")]
-position = Vector2(90, 273)
+position = Vector2(82, 273)
 
 [node name="Checkpoint" parent="." instance=ExtResource("5_v30b8")]
 position = Vector2(2717, 502)
 script = ExtResource("6_5swy1")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("7_y2co5")
+
+[node name="HP" type="Label" parent="HUD"]
+visible = false
+offset_left = 26.0
+offset_top = 7.0
+offset_right = 66.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+script = ExtResource("8_d0b65")
+
+[node name="Panel" type="Panel" parent="HUD"]
+offset_right = 185.0
+offset_bottom = 125.0
+scale = Vector2(1.25509, 1)
+theme = SubResource("Theme_wqhxi")
+theme_override_styles/panel = SubResource("StyleBoxTexture_r5lyj")
+
+[node name="coin image" type="TextureRect" parent="HUD"]
+visible = false
+offset_left = 52.0
+offset_top = 86.0
+offset_right = 367.0
+offset_bottom = 433.0
+scale = Vector2(0.0889058, 0.0811789)
+texture = ExtResource("10_jreob")
+expand_mode = 1
+
+[node name="X" type="Label" parent="HUD"]
+visible = false
+offset_left = 76.0
+offset_top = 33.0
+offset_right = 116.0
+offset_bottom = 56.0
+text = "X"
+
+[node name="COIN" type="Label" parent="HUD"]
+offset_left = 138.0
+offset_top = 73.0
+offset_right = 159.0
+offset_bottom = 96.0
+scale = Vector2(1.7, 1.7)
+text = "##"
+
+[node name="player health bar" type="ProgressBar" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -2.0
+offset_right = 2.0
+offset_bottom = 27.0
+grow_horizontal = 2
+script = ExtResource("11_t14dm")
+
+[node name="coins" type="Node2D" parent="."]
+
+[node name="coin4" parent="coins" instance=ExtResource("12_s6nlx")]
+position = Vector2(1015, 418)
+
+[node name="coin5" parent="coins" instance=ExtResource("12_s6nlx")]
+position = Vector2(727, 326)
+
+[node name="coin6" parent="coins" instance=ExtResource("12_s6nlx")]
+position = Vector2(1571, 416)
