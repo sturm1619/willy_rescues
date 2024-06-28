@@ -9,6 +9,7 @@ var player_health = 20
 
 const SPEED = 200.0
 const JUMP_VELOCITY = -350.0
+const CROUCH_SPEED = 150.0
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -16,11 +17,13 @@ var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim = get_node("AnimationPlayer")
 @onready var healthbar = $CanvasLayer/HealthBar2
+@onready var hitbox = $AnimatedSprite2D/SwordHit/CollisionShape2D
 
 var jumping : bool = false
 var attacking : bool = false
 var moving : bool = false
 var hurting : bool = false
+var crouching: bool = false
 var attack_button_cooling_down : bool = false
 
 const air_speed_top : float = 50.0
@@ -76,18 +79,31 @@ func attack():
 
 func move():
 	moving = false
+	crouching = false
 	var direction = Input.get_axis("ui_left", "ui_right")
+
 	if direction == -1:
 		get_node("AnimatedSprite2D").flip_h = true
+		hitbox.position.x = -33.626
 
 	if direction == 1:
 		get_node("AnimatedSprite2D").flip_h = false
+		hitbox.position.x = 33.626
+
+	if Input.is_action_pressed("Crouch") and not jumping:
+		crouching = true
+		anim.play("Crouch")
 
 	if direction:
 		moving = true
-		velocity.x = direction * SPEED
 		
-		if is_on_floor() and moving and not (jumping or attacking or hurting) and anim.get_current_animation() != "Attack" and anim.get_current_animation() != "Run":
+		if crouching:
+			velocity.x = direction * CROUCH_SPEED
+		else:
+			velocity.x = direction * SPEED
+		
+		
+		if is_on_floor() and moving and not (jumping or attacking or hurting or crouching) and anim.get_current_animation() != "Attack" and anim.get_current_animation() != "Run":
 			if not attacking:
 				anim.play("Run")
 		if is_on_floor() and moving and attacking and not (jumping or hurting) and anim.get_current_animation() != "Attack":
@@ -103,9 +119,12 @@ func move():
 
 func idle():
 	#if not (jumping and moving and hurting): 
-	if not jumping and not moving:
-		velocity.x = 0
-		if velocity.y == 0 and not attacking or hurting:
+	if not moving:
+		if jumping and velocity.x != 0:
+			velocity.x = velocity.x - velocity.x/abs(velocity.x) * (15.0)
+		else:
+			velocity.x = 0
+		if velocity.y == 0 and not (attacking or hurting or crouching):
 			anim.play("Idle")
 	
 
